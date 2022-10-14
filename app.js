@@ -32,13 +32,21 @@ const cartIcon = document.querySelector(".cart");
 const cart = document.querySelector(".cart-content");
 const cartContainer = document.querySelector(".cart-item-container");
 const showTotal = document.querySelector(".span-total")
-let productsInCart;
+let productsInCart = [];
 
-if (localStorage.getItem("cart")) {
+if (localStorage.getItem("cart") && productsInCart.length == 0) {
   productsInCart = JSON.parse(localStorage.getItem("cart"));
-  addToCart(productsInCart);
-}else {
-  productsInCart = [];
+  // for (product of productsInCart) {
+  //   if(productsInCart.length < 10)
+  //   console.log("bucle");
+  //   // addToCart(product.id);
+  // }
+  console.log(productsInCart);
+}
+
+if (productsInCart.length > 0) {
+  console.log("bucle2");
+  addToOther(productsInCart)
 }
 
 // const buttonToClick = document.querySelector(".button-click");
@@ -112,6 +120,32 @@ function putProduct(product) {
 //   `
 //   cartContainer.appendChild(div);
 // }
+
+function addToOther(obj) {
+  for (product of obj) {
+    let div = document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML = `
+    <div class="cart-content-image">
+      <img src="${product.image}" alt="" />
+    </div>
+    <div class="cart-description">
+      <p>${product.title}</p>
+      <span>stock: 14 |</span><span>$21.56</span>
+      <p>Subtotal: $${product.price}</p>
+      <div class="cart-buttoms">
+        <button>-</button>
+        <p>1 unidad(es)</p>
+        <button>+</button>
+        <object class="cart-trash" data="./iconos/trash-solid.svg" type=""></object>
+      </div>
+    </div>
+    `
+    cartContainer.appendChild(div);
+    console.log("bucle3");
+  }
+}
+
 function addToCart(id) {
   const product = products.find((product) => product.id == id);
 
