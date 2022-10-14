@@ -129,13 +129,14 @@ nav {
 .home {
   padding: 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 10px;
   background-color: bisque;
 }
 
 .description {
-  width: 30%;
+  width: 40%;
   color: #a3a3a3;
 }
 
@@ -151,6 +152,20 @@ nav {
 .home-image img {
   width: 330px;
   /* background-color: red; */
+}
+
+@media (max-width: 770px) {
+  .home{
+    text-align: center;
+    justify-content: center;
+  }
+  .description{
+    width: 80%;
+  }
+  .home-image{
+    width: 80%;
+    padding: 0;
+  }
 }
 
 /* Products */

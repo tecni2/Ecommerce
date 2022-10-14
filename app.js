@@ -6,7 +6,7 @@ let showCart = false
 const products = [
   {
     image: "./imagenes/21729-4-saucony-grid-9000.png",
-    title: "saucony",
+    title: "Saucony",
     price: 306,
     id: 1,
     stock: 2
@@ -27,9 +27,16 @@ const products = [
   },
   {
     image: "./imagenes/8-2-shoes-picture.png",
-    title: "Reaboks",
+    title: "Zapatos de cuero",
     price: 186,
     id: 4,
+    stock: 10
+  },
+  {
+    image: "./imagenes/6-2-shoes-png-file.png",
+    title: "Zapatos de elegantes",
+    price: 225,
+    id: 5,
     stock: 10
   },
 ]
