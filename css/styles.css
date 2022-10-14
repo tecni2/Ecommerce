@@ -48,7 +48,7 @@ nav {
 .cart-content {
   display: none;
   position: fixed;
-  height: 80%;
+  max-height: 80%;
   overflow: auto;
   right: 0;
   /* top: 0; */
@@ -71,7 +71,7 @@ nav {
   position: relative;
 }
 
-.cart-item-container .equis {
+ .equis {
   position: fixed;
   width: 20px;
   right: 35px;
