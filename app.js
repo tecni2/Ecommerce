@@ -1,5 +1,6 @@
 const buttonBuy = document.querySelector(".button-buy");
 const spanItem = document.querySelector(".span-item");
+const equis = document.querySelector(".equis");
 
 let showCart = false
 
@@ -89,6 +90,16 @@ cartIcon.addEventListener("click", () => {
 buttonBuy.addEventListener("click", () => {
   buy();
   alert("Gracias por su compra")
+})
+
+equis.addEventListener("click", () => {
+  if (showCart) {
+    cart.style.display = "none"
+    showCart = !showCart
+  } else {
+    cart.style.display = "flex"
+    showCart = !showCart
+  }
 })
 
 function totalPrice(productsInCart) {

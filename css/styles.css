@@ -46,7 +46,9 @@ nav {
 
 .cart-content {
   display: none;
-  position: absolute;
+  position: fixed;
+  height: 80%;
+  overflow: auto;
   right: 0;
   /* top: 0; */
   flex-direction: column;
@@ -65,6 +67,15 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 80px;
+  position: relative;
+}
+
+.cart-item-container .equis{
+  position: fixed;
+  width: 20px;
+  right: 35px;
+  top: 100px;
+  cursor: pointer;
 }
 
 .cart-item {
@@ -165,6 +176,9 @@ nav {
   .home-image{
     width: 80%;
     padding: 0;
+  }
+  .cart-content{
+    width: 80%;
   }
 }
 
