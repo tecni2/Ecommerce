@@ -34,12 +34,12 @@ nav {
 
 /* Cart */
 
-.cart object {
+.cart img {
   width: 20px;
 }
 
 .cart-content {
-  display: flex;
+  display: none;
   position: absolute;
   /* top: 0; */
   flex-direction: column;
