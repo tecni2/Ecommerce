@@ -1,3 +1,6 @@
+const buttonBuy = document.querySelector(".button-buy");
+const spanItem = document.querySelector(".span-item");
+
 let showCart = false
 
 const products = [
@@ -76,6 +79,11 @@ cartIcon.addEventListener("click", () => {
   }
 });
 
+buttonBuy.addEventListener("click", () => {
+  buy();
+  alert("Gracias por su compra")
+})
+
 function totalPrice(productsInCart) {
   let sum = 0
 
@@ -122,7 +130,7 @@ function addToOther(obj) {
     </div>
     `
     cartContainer.appendChild(div);
-    console.log("bucle3");
+    spanItem.innerHTML = productsInCart.length;
   }
 }
 
@@ -180,6 +188,12 @@ function deleteCartItem(id) {
   localStorage.setItem("cart", JSON.stringify(productsInCart));
 }
 
+function buy() {
+  productsInCart = [];
+  localStorage.setItem("cart", JSON.stringify(productsInCart))
+  cartContainer.innerHTML = ""
+}
+
 function addToCart(id) {
   produc = productsInCart.find(product => product.id == id)
   if (produc) {
@@ -215,4 +229,6 @@ function addToCart(id) {
   productsInCart.push(product);
   showTotal.innerHTML = totalPrice(productsInCart);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
+  cartContainer.appendChild(div);
+  spanItem.innerHTML = productsInCart.length;
 }
