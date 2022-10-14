@@ -157,12 +157,12 @@ function aumentarStock(id) {
     if (product2.id == id) {
       if (product2.stock > 0) {
         unidades++
-      console.log(unidades);
+        console.log(unidades);
         product2.stock--;
         article.childNodes[3].childNodes[3].innerHTML = `stock: ${product2.stock} |`;
         // console.log(product2.stock);
         article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML = unidades++;
-      }else{
+      } else {
         alert("No tenemos mas unidades de este producto")
       }
     }
@@ -181,6 +181,16 @@ function deleteCartItem(id) {
 }
 
 function addToCart(id) {
+  produc = productsInCart.find(product => product.id == id)
+  if (produc) {
+    productsInCart.forEach(prod => {
+      if (prod.id == produc.id && prod.stock > 0) {
+        prod.stock--
+      }
+    })
+    return
+  }
+
   const product = products.find((product) => product.id == id);
 
   let div = document.createElement("div");
