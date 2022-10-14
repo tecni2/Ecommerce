@@ -13,6 +13,13 @@ const products = [
     stock: 2
   },
   {
+    image: "./imagenes/4-2-shoes-free-download-png.png",
+    title: "Adidas",
+    price: 835,
+    id: 5,
+    stock: 10
+  },
+  {
     image: "./imagenes/28116-8-nike-shoes.png",
     title: "Nike",
     price: 485,
@@ -39,13 +46,6 @@ const products = [
     price: 225,
     id: 5,
     stock: 18
-  },
-  {
-    image: "./imagenes/4-2-shoes-free-download-png.png",
-    title: "Adidas",
-    price: 835,
-    id: 5,
-    stock: 10
   },
 ]
 const productContainer = document.querySelector(".product-container");
