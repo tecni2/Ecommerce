@@ -45,7 +45,7 @@ nav {
   flex-direction: column;
   border-radius: 5px;
   width: 450px;
-  background-color: #795548;
+  background-color: white;
   float: right;
   padding: 30px;
   text-align: center;
@@ -59,8 +59,9 @@ nav {
 
 .cart-item {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  background-color: beige;
 }
 
 .cart-content-image {
