@@ -17,8 +17,9 @@ nav {
   color: red;
 }
 
-.logo object {
+.logo img {
   width: 40px;
+  cursor: pointer;
 }
 
 .nav-bar {
@@ -32,15 +33,21 @@ nav {
   color: #a3a3a3;
 }
 
+.nav-bar a:hover{
+  color: #795548;
+}
+
 /* Cart */
 
 .cart img {
   width: 20px;
+  cursor: pointer;
 }
 
 .cart-content {
   display: none;
   position: absolute;
+  right: 0;
   /* top: 0; */
   flex-direction: column;
   border-radius: 5px;
