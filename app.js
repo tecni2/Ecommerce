@@ -38,6 +38,13 @@ const products = [
     title: "Zapatos de elegantes",
     price: 225,
     id: 5,
+    stock: 18
+  },
+  {
+    image: "./imagenes/4-2-shoes-free-download-png.png",
+    title: "Adidas",
+    price: 835,
+    id: 5,
     stock: 10
   },
 ]
@@ -149,6 +156,8 @@ function addToOther(obj) {
     `
     cartContainer.appendChild(div);
     spanItem.innerHTML = productsInCart.length;
+    showTotal.innerHTML = totalPrice(productsInCart);
+
   }
 }
 
@@ -204,12 +213,16 @@ function deleteCartItem(id) {
   console.log(article);
   productsInCart = productsInCart.filter(product => product.id != id);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
+  showTotal.innerHTML = totalPrice(productsInCart);
+  spanItem.innerHTML = productsInCart.length;
 }
 
 function buy() {
   productsInCart = [];
   localStorage.setItem("cart", JSON.stringify(productsInCart))
   cartContainer.innerHTML = ""
+  showTotal.innerHTML = totalPrice(productsInCart);
+  spanItem.innerHTML = productsInCart.length;
 }
 
 function addToCart(id) {
