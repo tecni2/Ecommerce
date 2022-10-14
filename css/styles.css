@@ -39,15 +39,22 @@ nav {
 }
 
 .cart-content {
-  display: none;
+  display: flex;
   position: absolute;
   /* top: 0; */
+  flex-direction: column;
   border-radius: 5px;
   width: 450px;
   background-color: #795548;
   float: right;
   padding: 30px;
   text-align: center;
+}
+
+.cart-item-container{
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
 }
 
 .cart-item {
@@ -88,7 +95,8 @@ nav {
 .cart-buttoms button {
   /* width: 15px; */
   /* height: 15px; */
-  background-color: inherit;
+  background-color: white;
+  font-size: 25px;
   border: none;
 }
 

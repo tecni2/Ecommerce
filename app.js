@@ -6,24 +6,28 @@ const products = [
     title: "saucony",
     price: 306,
     id: 1,
+    stock: 2
   },
   {
     image: "./imagenes/28116-8-nike-shoes.png",
     title: "Nike",
     price: 485,
     id: 2,
+    stock: 7
   },
   {
     image: "./imagenes/3-2-shoes-transparent.png",
     title: "Zapatito",
     price: 685,
     id: 3,
+    stock: 5
   },
   {
     image: "./imagenes/8-2-shoes-picture.png",
     title: "Reaboks",
     price: 186,
-    id: 4
+    id: 4,
+    stock: 10
   },
 ]
 const productContainer = document.querySelector(".product-container");
@@ -55,8 +59,6 @@ if (productsInCart.length > 0) {
 for (product of products) {
   putProduct(product);
 }
-
-console.log(productContainer);
 
 // buttonToClick.addEventListener("click", () => {
 //   console.log("clikeado");
@@ -99,45 +101,23 @@ function putProduct(product) {
   productContainer.appendChild(article);
 }
 
-// function createCartItem() {
-//   let div = document.createElement("div");
-//   div.classList.add("cart-item");
-//   div.innerHTML = `
-//   <div class="cart-content-image">
-//     <img src="./imagenes/9-2-shoes-png-image.png" alt="" />
-//   </div>
-//   <div class="cart-description">
-//     <p>Zapatos de cuero</p>
-//     <span>stock: 14 |</span><span>$21.56</span>
-//     <p>Subtotal: $21.56</p>
-//     <div class="cart-buttoms">
-//       <button>-</button>
-//       <p>1 unidad(es)</p>
-//       <button>+</button>
-//       <object class="cart-trash" data="./iconos/trash-solid.svg" type=""></object>
-//     </div>
-//   </div>
-//   `
-//   cartContainer.appendChild(div);
-// }
-
 function addToOther(obj) {
   for (product of obj) {
     let div = document.createElement("div");
-    div.classList.add("cart-item");
+    div.classList.add("cart-item", `item-${product.id}`);
     div.innerHTML = `
     <div class="cart-content-image">
       <img src="${product.image}" alt="" />
     </div>
     <div class="cart-description">
       <p>${product.title}</p>
-      <span>stock: 14 |</span><span>$21.56</span>
+      <span>stock: ${product.stock} |</span><span>$21.56</span>
       <p>Subtotal: $${product.price}</p>
       <div class="cart-buttoms">
-        <button>-</button>
-        <p>1 unidad(es)</p>
-        <button>+</button>
-        <object class="cart-trash" data="./iconos/trash-solid.svg" type=""></object>
+        <button onclick="disminuirStock(${product.id})">-</button>
+        <p><span>1</span> unidad(es)</p>
+        <button onclick="aumentarStock(${product.id})">+</button>
+        <img onclick="deleteCartItem(${product.id})" class="cart-trash" src="./iconos/trash-solid.svg"></img>
       </div>
     </div>
     `
@@ -146,24 +126,78 @@ function addToOther(obj) {
   }
 }
 
+function disminuirStock(id) {
+  article = document.querySelector(`.item-${id}`)
+  product = productsInCart.find(produc => produc.id == id)
+
+  unidades = article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML;
+
+  productsInCart.forEach(product2 => {
+    maxStock = product.stock;
+    if (product2.id == id && unidades > 1) {
+      product2.stock++;
+      unidades--
+      article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML = unidades;
+      console.log(unidades);
+      if (product2.stock >= 0) {
+        article.childNodes[3].childNodes[3].innerHTML = `stock: ${product2.stock} |`;
+        console.log(product2.stock);
+      }
+    }
+  })
+  localStorage.setItem("cart", JSON.stringify(productsInCart));
+  // console.log(productsInCart);
+}
+
+function aumentarStock(id) {
+  article = document.querySelector(`.item-${id}`)
+
+  unidades = article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML;
+  productsInCart.forEach(product2 => {
+    if (product2.id == id) {
+      if (product2.stock > 0) {
+        unidades++
+      console.log(unidades);
+        product2.stock--;
+        article.childNodes[3].childNodes[3].innerHTML = `stock: ${product2.stock} |`;
+        // console.log(product2.stock);
+        article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML = unidades++;
+      }else{
+        alert("No tenemos mas unidades de este producto")
+      }
+    }
+  })
+  localStorage.setItem("cart", JSON.stringify(productsInCart));
+  // console.log(article.childNodes[3].childNodes);
+  // console.log(productsInCart);
+}
+
+function deleteCartItem(id) {
+  article = document.querySelector(`.item-${id}`)
+  article.style.display = "none";
+  console.log(article);
+  productsInCart = productsInCart.filter(product => product.id != id);
+  localStorage.setItem("cart", JSON.stringify(productsInCart));
+}
+
 function addToCart(id) {
   const product = products.find((product) => product.id == id);
 
   let div = document.createElement("div");
-  div.classList.add("cart-item");
+  div.classList.add("cart-item", `item-${product.id}`);
   div.innerHTML = `
   <div class="cart-content-image">
     <img src="${product.image}" alt="" />
   </div>
   <div class="cart-description">
     <p>${product.title}</p>
-    <span>stock: 14 |</span><span>$21.56</span>
+    <span>stock: ${product.stock} |</span><span>$21.56</span>
     <p>Subtotal: $${product.price}</p>
     <div class="cart-buttoms">
-      <button>-</button>
-      <p>1 unidad(es)</p>
-      <button>+</button>
-      <object class="cart-trash" data="./iconos/trash-solid.svg" type=""></object>
+      <button onclick="disminuirStock(${product.id})">-</button>
+      <p><span>1</span> unidad(es)</p>
+      <button onclick="aumentarStock(${product.id})">+</button>
+      <img onclick="deleteCartItem(${product.id})" class="cart-trash" src="./iconos/trash-solid.svg"></img>
     </div>
   </div>
   `
@@ -172,7 +206,3 @@ function addToCart(id) {
   showTotal.innerHTML = totalPrice(productsInCart);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
 }
-
-// putProduct();
-
-// console.log(cartIcon);
