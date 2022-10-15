@@ -5,6 +5,10 @@ body {
   color: #795548;
 }
 
+html {
+  box-sizing: border-box;
+}
+
 h1 {
   font-size: 36px;
 }

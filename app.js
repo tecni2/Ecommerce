@@ -55,6 +55,7 @@ const cart = document.querySelector(".cart-content");
 const cartContainer = document.querySelector(".cart-item-container");
 const showTotal = document.querySelector(".span-total")
 let productsInCart = [];
+let productsStock = []
 
 if (localStorage.getItem("cart") && productsInCart.length == 0) {
   productsInCart = JSON.parse(localStorage.getItem("cart"));
@@ -119,6 +120,23 @@ function totalPrice(productsInCart) {
   return `$${sum}`
 }
 
+function showSubTotal(price, unidades, article) {
+  result = price * unidades;
+
+  article.childNodes[3].childNodes[6].innerHTML = `Subtotal: $${result}`;
+
+  // if (productsStock[object.id] && disminuir == false) {
+  //   productsStock[object.id].toBuy++
+  //   subTotal = productsStock[object.id].price * productsStock[object.id].toBuy;
+  // } else if (productsStock[object.id] && disminuir) {
+  //   productsStock[object.id].toBuy--
+  //   subTotal = productsStock[object.id].price * productsStock[object.id].toBuy;
+  // } else {
+  //   productsStock[object.id] = object
+  //   productsStock[object.id].toBuy = 1;
+  // }
+}
+
 function putProduct(product) {
   article = document.createElement("article");
   article.innerHTML = `
@@ -135,16 +153,19 @@ function putProduct(product) {
 }
 
 function addToOther(obj) {
+  const newCartItems = []
   for (product of obj) {
-    let div = document.createElement("div");
-    div.classList.add("cart-item", `item-${product.id}`);
-    div.innerHTML = `
-    <div class="cart-content-image">
+    if (product.stock > 0) {
+
+      let div = document.createElement("div");
+      div.classList.add("cart-item", `item-${product.id}`);
+      div.innerHTML = `
+      <div class="cart-content-image">
       <img src="${product.image}" alt="" />
-    </div>
-    <div class="cart-description">
+      </div>
+      <div class="cart-description">
       <p>${product.title}</p>
-      <span>stock: ${product.stock} |</span><span>$21.56</span>
+      <span>stock: ${product.stock} |</span><span>${product.price}</span>
       <p>Subtotal: $${product.price}</p>
       <div class="cart-buttoms">
         <button onclick="disminuirStock(${product.id})">-</button>
@@ -152,13 +173,15 @@ function addToOther(obj) {
         <button onclick="aumentarStock(${product.id})">+</button>
         <img onclick="deleteCartItem(${product.id})" class="cart-trash" src="./iconos/trash-solid.svg"></img>
       </div>
-    </div>
-    `
-    cartContainer.appendChild(div);
-    spanItem.innerHTML = productsInCart.length;
-    showTotal.innerHTML = totalPrice(productsInCart);
-
+      </div>
+      `
+      cartContainer.appendChild(div);
+      spanItem.innerHTML = productsInCart.length;
+      showTotal.innerHTML = totalPrice(productsInCart);
+      newCartItems.push(product);
+    }
   }
+  localStorage.setItem("cart", JSON.stringify(newCartItems));
 }
 
 function disminuirStock(id) {
@@ -172,6 +195,7 @@ function disminuirStock(id) {
     if (product2.id == id && unidades > 1) {
       product2.stock++;
       unidades--
+      showSubTotal(product2.price, unidades, article);
       article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML = unidades;
       console.log(unidades);
       if (product2.stock >= 0) {
@@ -192,6 +216,7 @@ function aumentarStock(id) {
     if (product2.id == id) {
       if (product2.stock > 0) {
         unidades++
+        showSubTotal(product2.price, unidades, article);
         console.log(unidades);
         product2.stock--;
         article.childNodes[3].childNodes[3].innerHTML = `stock: ${product2.stock} |`;
@@ -246,7 +271,7 @@ function addToCart(id) {
   </div>
   <div class="cart-description">
     <p>${product.title}</p>
-    <span>stock: ${product.stock} |</span><span>$21.56</span>
+    <span>stock: ${product.stock} |</span><span>${product.price}</span>
     <p>Subtotal: $${product.price}</p>
     <div class="cart-buttoms">
       <button onclick="disminuirStock(${product.id})">-</button>
@@ -262,4 +287,5 @@ function addToCart(id) {
   localStorage.setItem("cart", JSON.stringify(productsInCart));
   cartContainer.appendChild(div);
   spanItem.innerHTML = productsInCart.length;
+  console.log(productsInCart);
 }
