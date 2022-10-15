@@ -44,7 +44,7 @@ const products = [
     image: "./imagenes/6-2-shoes-png-file.png",
     title: "Zapatos de elegantes",
     price: 225,
-    id: 5,
+    id: 6,
     stock: 18
   },
 ]
