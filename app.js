@@ -96,8 +96,12 @@ cartIcon.addEventListener("click", () => {
 });
 
 buttonBuy.addEventListener("click", () => {
-  buy();
-  alert("Gracias por su compra")
+  if(productsInCart.length > 0){
+    buy();
+    alert("Gracias por su compra")
+  }else{
+    alert("Necesitas agregar productos al carrito para realizar la compra")
+  }
 })
 
 equis.addEventListener("click", () => {
