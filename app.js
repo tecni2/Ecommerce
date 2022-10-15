@@ -64,11 +64,11 @@ if (localStorage.getItem("cart") && productsInCart.length == 0) {
   //   console.log("bucle");
   //   // addToCart(product.id);
   // }
-  console.log(productsInCart);
+  // console.log(productsInCart);
 }
 
 if (productsInCart.length > 0) {
-  console.log("bucle2");
+  // console.log("bucle2");
   addToOther(productsInCart)
 }
 
@@ -197,10 +197,10 @@ function disminuirStock(id) {
       unidades--
       showSubTotal(product2.price, unidades, article);
       article.childNodes[3].childNodes[8].childNodes[3].childNodes[0].innerHTML = unidades;
-      console.log(unidades);
+      // console.log(unidades);
       if (product2.stock >= 0) {
         article.childNodes[3].childNodes[3].innerHTML = `stock: ${product2.stock} |`;
-        console.log(product2.stock);
+        // console.log(product2.stock);
       }
     }
   })
@@ -217,7 +217,7 @@ function aumentarStock(id) {
       if (product2.stock > 0) {
         unidades++
         showSubTotal(product2.price, unidades, article);
-        console.log(unidades);
+        // console.log(unidades);
         product2.stock--;
         article.childNodes[3].childNodes[3].innerHTML = `stock: ${product2.stock} |`;
         // console.log(product2.stock);
@@ -235,7 +235,6 @@ function aumentarStock(id) {
 function deleteCartItem(id) {
   article = document.querySelector(`.item-${id}`)
   article.style.display = "none";
-  console.log(article);
   productsInCart = productsInCart.filter(product => product.id != id);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
   showTotal.innerHTML = totalPrice(productsInCart);
@@ -287,5 +286,4 @@ function addToCart(id) {
   localStorage.setItem("cart", JSON.stringify(productsInCart));
   cartContainer.appendChild(div);
   spanItem.innerHTML = productsInCart.length;
-  console.log(productsInCart);
 }
